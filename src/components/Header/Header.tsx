@@ -1,9 +1,11 @@
-import { FC, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { setUser, selectUser } from "../../store/userSlice";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { FC, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { setUser } from '../../store/user/userSlice';
+import { selectUser } from '../../store/user/userSelectors';
 
-import "./Header.css";
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+
+import './Header.css';
 
 export const Header: FC = () => {
   const dispatch = useAppDispatch();
@@ -14,8 +16,8 @@ export const Header: FC = () => {
       dispatch(
         setUser({
           id: 1,
-          name: "Иван Иванов",
-          email: "ivan@example.com",
+          name: 'Иван Иванов',
+          email: 'ivan@example.com',
         })
       );
     }, 500);

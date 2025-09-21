@@ -1,6 +1,6 @@
-import { FC } from "react";
-import { Plus, Minus } from "lucide-react";
-import "./ButtonQuantityControls.css";
+import { FC } from 'react';
+import { Plus, Minus } from 'lucide-react';
+import './ButtonQuantityControls.css';
 
 interface IProps {
   quantity: number;
@@ -15,11 +15,11 @@ export const ButtonQuantityControls: FC<IProps> = ({
 }) => {
   return (
     <div className="quantity-controls">
-      <button onClick={onDecrease}>
+      <button type="button" onClick={onDecrease}>
         <Minus size={16} />
       </button>
       <span>{quantity}</span>
-      <button onClick={onIncrease}>
+      <button type="button" onClick={onIncrease}>
         <Plus size={16} />
       </button>
     </div>

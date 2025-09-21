@@ -1,7 +1,9 @@
-import { FC } from "react";
-import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { selectSearchTerm, setSearchTerm } from "../../store/productSlice";
+import { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { selectSearchTerm } from '../../store/products/productSelectors';
+import { setSearchTerm } from '../../store/products/productSlice';
+import { WrapperStyles } from '../WrapperStyles/WrapperStyles';
 
 export const ProductSearch: FC = () => {
   const dispatch = useAppDispatch();
@@ -12,13 +14,13 @@ export const ProductSearch: FC = () => {
   };
 
   return (
-    <div className="search">
+    <WrapperStyles classNames="search">
       <input
         type="text"
         placeholder="Поиск товаров..."
         value={searchTerm}
         onChange={handleSearchChange}
       />
-    </div>
+    </WrapperStyles>
   );
 };

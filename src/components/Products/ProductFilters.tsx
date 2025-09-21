@@ -1,13 +1,19 @@
-import React, { FC, useState } from "react";
-import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
+import React, { FC, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 import {
   selectSelectedCategory,
   selectSortBy,
+} from '../../store/products/productSelectors';
+
+import {
   setSelectedCategory,
   setSortBy,
-} from "../../store/productSlice";
-import { ProductSearch } from "../Products/ProductSearch";
+} from '../../store/products/productSlice';
+import { ProductSearch } from '../Products/ProductSearch';
+import { CATEGORY_OPTIONS, SORT_OPTIONS } from '../../utils/constants';
+
+type TOption = { value: string; label: string };
 
 export const ProductFilters: FC = () => {
   const dispatch = useAppDispatch();
@@ -25,27 +31,31 @@ export const ProductFilters: FC = () => {
     dispatch(setSortBy(e.target.value));
   };
 
+  const renderOption = (arrayOptions: TOption[]) => {
+    return arrayOptions.map(({ value, label }) => (
+      <option key={value} value={value}>
+        {label}
+      </option>
+    ));
+  };
+
   return (
     <div className="filters">
       <ProductSearch />
 
       <div className="filter-controls">
         <button onClick={() => setShowFilters(!showFilters)}>
-          {showFilters ? "Скрыть фильтры" : "Показать фильтры"}
+          {showFilters ? 'Скрыть фильтры' : 'Показать фильтры'}
         </button>
 
         <div className="filters-view">
           {showFilters && (
             <>
               <select value={selectedCategory} onChange={handleCategoryChange}>
-                <option value="all">Все категории</option>
-                <option value="phones">Телефоны</option>
-                <option value="laptops">Ноутбуки</option>
-                <option value="tablets">Планшеты</option>
+                {renderOption(CATEGORY_OPTIONS)}
               </select>
               <select value={sortBy} onChange={handleSortChange}>
-                <option value="name">По названию</option>
-                <option value="price">По цене</option>
+                {renderOption(SORT_OPTIONS)}
               </select>
             </>
           )}

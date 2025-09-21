@@ -1,10 +1,11 @@
-import { FC, useCallback, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectCartCount } from "../../store/cartSlice";
-import { CartHeader } from "./CartHeader";
-import { CartFooter } from "./CartFooter";
-import { CartList } from "./CartList";
-import "./Cart.css";
+import { FC, useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCartCount } from '../../store/cart/cartSelectors';
+import { CartHeader } from './CartHeader';
+import { CartFooter } from './CartFooter';
+import { CartList } from './CartList';
+import './Cart.css';
+import { WrapperStyles } from '../WrapperStyles/WrapperStyles';
 
 export const Cart: FC = () => {
   const cartCount = useSelector(selectCartCount);
@@ -15,22 +16,22 @@ export const Cart: FC = () => {
     setIsOpen(false);
   }, []);
 
-  const handleChange = () => {
+  const handleToggle = () => {
     setIsOpen((prev) => !prev);
   };
 
   return (
     <div className="cart">
-      <button className="cart-toggle" onClick={handleChange}>
+      <button type="button" className="cart-toggle" onClick={handleToggle}>
         Корзина ({cartCount})
       </button>
 
       {isOpen && (
-        <div className="cart-dropdown">
+        <WrapperStyles classNames="cart-dropdown">
           <CartHeader setIsClose={handleClose} />
           <CartList />
           <CartFooter setIsClose={handleClose} />
-        </div>
+        </WrapperStyles>
       )}
     </div>
   );

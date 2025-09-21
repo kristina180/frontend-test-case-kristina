@@ -1,16 +1,16 @@
-import { FC } from "react";
-import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { selectCart } from "../../store/cartSlice";
-import { ButtonQuantityControls } from "../ButtonQuantityControls/ButtonQuantityControls";
-import { placeholderImg } from "../../utils/constants";
+import { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { selectCart } from '../../store/cart/cartSelectors';
+import { ButtonQuantityControls } from '../ButtonQuantityControls/ButtonQuantityControls';
+import { placeholderImg } from '../../utils/constants';
 
 export const CartList: FC = () => {
   const cart = useSelector(selectCart);
   const dispatch = useAppDispatch();
 
   const handleRemoveItem = (id: number): void => {
-    dispatch({ type: "cart/removeFromCart", payload: id });
+    dispatch({ type: 'cart/removeFromCart', payload: id });
   };
 
   const handleUpdateQuantity = (id: number, quantity: number): void => {
@@ -18,7 +18,7 @@ export const CartList: FC = () => {
       handleRemoveItem(id);
       return;
     }
-    dispatch({ type: "cart/updateQuantity", payload: { id, quantity } });
+    dispatch({ type: 'cart/updateQuantity', payload: { id, quantity } });
   };
 
   return (

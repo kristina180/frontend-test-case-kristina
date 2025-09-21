@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { useSelector } from "react-redux";
-import { selectFilteredAndSortedProducts } from "../../store/productSlice";
-import { ProductCard } from "./ProductCard";
+import { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { selectFilteredAndSortedProducts } from '../../store/products/productSelectors';
+import { ProductCard } from './ProductCard';
 
 export const ProductList: FC = () => {
   const products = useSelector(selectFilteredAndSortedProducts);

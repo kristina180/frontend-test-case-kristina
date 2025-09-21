@@ -1,11 +1,11 @@
-import { FC } from "react";
-import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { selectCart, selectCartItemById } from "../../store/cartSlice";
-import { TProduct } from "../../store/productSlice";
-import { ButtonQuantityControls } from "../ButtonQuantityControls/ButtonQuantityControls";
-import { RootState } from "../../store/store";
-import { placeholderImg } from "../../utils/constants";
+import { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { selectCartItemById } from '../../store/cart/cartSelectors';
+import { TProduct } from '../../store/products/types';
+import { ButtonQuantityControls } from '../ButtonQuantityControls/ButtonQuantityControls';
+import { RootState } from '../../store/store';
+import { placeholderImg } from '../../utils/constants';
 
 interface IProps {
   product: TProduct;
@@ -13,29 +13,29 @@ interface IProps {
 
 export const ProductCard: FC<IProps> = ({ product }) => {
   const dispatch = useAppDispatch();
-  const cart = useSelector(selectCart);
+
   const { id, image, name, description, price } = product;
   const quantityInCart =
     useSelector((state: RootState) => selectCartItemById(state, product.id))
       ?.quantity || 0;
 
   const handleClickAddCartButton = () => {
-    const action = { type: "cart/addToCart", payload: product };
+    const action = { type: 'cart/addToCart', payload: product };
     dispatch(action);
   };
 
   const handleIncrease = () => {
     const quantity = quantityInCart + 1;
-    dispatch({ type: "cart/updateQuantity", payload: { id, quantity } });
+    dispatch({ type: 'cart/updateQuantity', payload: { id, quantity } });
   };
 
   const handleDecrease = () => {
     const quantity = quantityInCart - 1;
 
     if (quantity <= 0) {
-      dispatch({ type: "cart/removeFromCart", payload: id });
+      dispatch({ type: 'cart/removeFromCart', payload: id });
     } else {
-      dispatch({ type: "cart/updateQuantity", payload: { id, quantity } });
+      dispatch({ type: 'cart/updateQuantity', payload: { id, quantity } });
     }
   };
 

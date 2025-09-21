@@ -1,21 +1,12 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "./store";
-import { TProduct } from "./productSlice";
+import { createSlice } from '@reduxjs/toolkit';
 
-type TCart = TProduct & {
-  quantity: number;
-};
+import { IInitialState } from './types';
 
-interface IInitialState {
-  cart: TCart[];
-}
-
-const initialState: IInitialState = {
+export const initialState: IInitialState = {
   cart: [],
 };
-
 export const cartSlice = createSlice({
-  name: "cart",
+  name: 'cart',
   initialState,
   reducers: {
     addToCart: (state, action) => {
@@ -47,21 +38,6 @@ export const cartSlice = createSlice({
     },
   },
 });
-
-export const selectCart = (state: RootState) => state.cart.cart;
-
-export const selectCartCount = createSelector([selectCart], (cart) =>
-  cart.reduce((total, item) => total + item.quantity, 0)
-);
-
-export const selectTotalPrice = createSelector([selectCart], (cart) =>
-  cart.reduce((total, item) => total + item.price * item.quantity, 0)
-);
-
-export const selectCartItemById = createSelector(
-  [selectCart, (_: RootState, id: number) => id],
-  (cart, id) => cart.find((item) => item.id === id)
-);
 
 export const { addToCart, removeFromCart, updateQuantity, clearCart } =
   cartSlice.actions;
